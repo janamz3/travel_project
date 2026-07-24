@@ -1,0 +1,51 @@
+{% extends 'trips/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            {% if trip.image %}
+                <img src="{{ trip.image.url }}" class="img-fluid mb-3" style="max-height: 400px; width: 100%; object-fit: cover;">
+            {% endif %}
+
+            <h1>{{ trip.title }}</h1>
+            <p><strong>🏙️ الوجهة:</strong> {{ trip.destination.name }} - {{ trip.destination.country }}</p>
+            <p><strong>⭐ التقييم:</strong> {{ trip.rating }}/5</p>
+            <p><strong>📅 المدة:</strong> {{ trip.duration }} أيام</p>
+            <p><strong>💰 الميزانية:</strong> {{ trip.budget }} ريال</p>
+            <p><strong>👤 بواسطة:</strong> {{ trip.user.username }}</p>
+
+            <h3>📝 التجربة</h3>
+            <p>{{ trip.description }}</p>
+
+            <h3>🏆 أفضل الأماكن</h3>
+            <p>{{ trip.best_places }}</p>
+
+            <h3>💡 النصائح</h3>
+            <p>{{ trip.tips }}</p>
+
+            {% if user == trip.user %}
+            <a href="{% url 'edit_trip' trip.pk %}" class="btn btn-warning">✏️ تعديل</a>
+            <a href="{% url 'delete_trip' trip.pk %}" class="btn btn-danger">🗑️ حذف</a>
+            {% endif %}
+        </div>
+
+        <div class="col-md-4">
+            <h3>رحلات مشابهة</h3>
+            {% for s in similar %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5>{{ s.title }}</h5>
+                    <p>⭐ {{ s.rating }}/5</p>
+                    <a href="{% url 'trip_detail' s.pk %}" class="btn btn-sm btn-primary">عرض</a>
+                </div>
+            </div>
+            {% empty %}
+            <p>لا توجد رحلات مشابهة</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <a href="{% url 'trip_list' %}" class="btn btn-secondary mt-3">⬅️ رجوع</a>
+</div>
+{% endblock %}

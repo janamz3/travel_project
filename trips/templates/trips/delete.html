@@ -1,0 +1,16 @@
+{% extends 'trips/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="alert alert-danger">
+        <h3>⚠️ تأكيد الحذف</h3>
+        <p>هل أنت متأكد من حذف: <strong>{{ trip.title }}</strong>؟</p>
+
+        <form method="POST" class="mt-3">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">✓ نعم، احذف</button>
+            <a href="{% url 'trip_detail' trip.pk %}" class="btn btn-secondary">✗ إلغاء</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

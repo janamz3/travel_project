@@ -1,0 +1,59 @@
+{% extends 'trips/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>{{ title }}</h1>
+
+    <form method="POST" enctype="multipart/form-data" class="mt-4">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">{{ form.title.label }}</label>
+            {{ form.title }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">{{ form.destination.label }}</label>
+            {{ form.destination }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">{{ form.description.label }}</label>
+            {{ form.description }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">{{ form.best_places.label }}</label>
+            {{ form.best_places }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">{{ form.tips.label }}</label>
+            {{ form.tips }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">{{ form.rating.label }}</label>
+            {{ form.rating }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">{{ form.image.label }}</label>
+            {{ form.image }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">{{ form.duration.label }}</label>
+            {{ form.duration }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">{{ form.budget.label }}</label>
+            {{ form.budget }}
+        </div>
+
+        <button type="submit" class="btn btn-success">💾 حفظ</button>
+        <a href="{% url 'trip_list' %}" class="btn btn-secondary">⬅️ إلغاء</a>
+    </form>
+</div>
+{% endblock %}

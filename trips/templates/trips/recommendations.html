@@ -1,0 +1,51 @@
+{% extends 'trips/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>💡 التوصيات الذكية</h1>
+
+    <form method="POST" class="mb-4">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-3">
+                <label>نوع السفر:</label>
+                <select name="trip_type" class="form-control">
+                    <option value="">اختر...</option>
+                    <option value="nature">🌿 طبيعة</option>
+                    <option value="city">🏙️ مدن</option>
+                    <option value="heritage">🏛️ آثار</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label>الميزانية:</label>
+                <input type="number" name="budget" class="form-control" placeholder="بالريال">
+            </div>
+            <div class="col-md-3">
+                <label>المدة:</label>
+                <input type="number" name="duration" class="form-control" placeholder="أيام">
+            </div>
+            <div class="col-md-3 pt-4">
+                <button type="submit" class="btn btn-primary w-100">🔍 بحث</button>
+            </div>
+        </div>
+    </form>
+
+    <h3>الرحلات الموصى بها:</h3>
+    <div class="row">
+        {% for trip in trips %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>{{ trip.title }}</h5>
+                    <p>{{ trip.destination.name }}</p>
+                    <p>⭐ {{ trip.rating }} | 💰 {{ trip.budget }} | 📅 {{ trip.duration }} يوم</p>
+                    <a href="{% url 'trip_detail' trip.pk %}" class="btn btn-sm btn-primary">عرض</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="alert alert-info w-100">لا توجد توصيات مطابقة</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
